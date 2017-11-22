@@ -1,0 +1,139 @@
+{% extends "layout.html" %}
+
+{% block head %}
+    {{ super() }}
+    <!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+  integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+  crossorigin=""/>
+    <!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+  integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+  crossorigin=""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment.js"></script>
+    <!-- Map style -->
+    <style>
+    #map{
+        height: calc(100% - 140px);
+        width: calc(100% - 80px);
+        position:absolute !important;
+        margin: 20px;
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+    <h1>{{ title }}</h1>
+
+    {% if current_user.is_authenticated %}
+        <h2 class="ui header">Hi {{ current_user.name }}!</h2>
+    {% endif %}
+
+    <div id="map"></div>
+    {#    <canvas id='chart' width="800" height="600"></canvas>#}
+{#    <div class="ct-chart ct-perfect-fourth"></div>#}
+    </div>
+    <script>
+        // The first parameter are the coordinates of the center of the map
+        // The second parameter is the zoom level
+        var mymap = L.map('map').setView([38.0000,-97.0000], 5);
+
+        // {s}, {z}, {x} and {y} are placeholders for map tiles
+        // {x} and {y} are the x/y of where you are on the map
+        // {z} is the zoom level
+        // {s} is the subdomain of cartodb
+        var layer = L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; ' +
+            '<a href="http://cartodb.com/attributions">CartoDB</a>'
+        });
+
+
+        // Add the layer onto the map
+        mymap.addLayer(layer);
+
+        {%  for loc in location %}
+            L.marker([{{ loc.lat }}, {{ loc.long }}]).addTo(mymap)
+                .bindPopup("<strong><h3>Attack Details<h3></strong>" +
+                    " {{ "{}, {}".format(loc.lat, loc.long) }}" +
+                    "</br>" +
+                    "<ul>" +
+                    "<li><strong>Targeted IP Count: </strong>{{ loc.ip_count }}</li>" +
+                    "<li><strong>TCP Packets: </strong>{{ loc.tcp_count }}</li>" +
+                    "<li><strong>UDP Packets: </strong>{{ loc.udp_count }}</li>" +
+                    "<li><strong>ICMP Packets: </strong>{{ loc.icmp_count }}</li>" +
+                    "</ul>");
+        {% endfor %}
+
+{#        var ctx = document.getElementById("chart").getContext('2d');#}
+
+        var tcp_data = [];
+        var udp_data = [];
+        var icmp_data = [];
+        var ip_data = [];
+
+        {%  for timeframe in timeframes %}
+            tcp_data.push({x: new Date({{ timeframe.timeframe }}), y: {{ timeframe.tcp_total }} });
+            udp_data.push({x: new Date({{ timeframe.timeframe }}), y: {{ timeframe.udp_total }} });
+            icmp_data.push({x: new Date({{ timeframe.timeframe }}), y: {{ timeframe.icmp_total }} });
+            ip_data.push({x: new Date({{ timeframe.timeframe }}), y: {{ timeframe.ip_total }} });
+        {% endfor %}
+
+        var chart = new Chartist.Line('.ct-chart', {
+            series: [
+                {
+                    name: 'TCP Packets',
+                    data: tcp_data
+                },
+                {
+                    name: 'UDP Packets',
+                    data: udp_data
+                },
+                {
+                    name: 'ICMP Packets',
+                    data: icmp_data
+                },
+                {
+                    name: 'Targeted IPs',
+                    data: ip_data
+                }
+            ]
+        },
+            {
+                axisX: {
+                    type: Chartist.FixedScaleAxis,
+                    divisor: 20,
+                    labelInterpolationFnc: function(value){
+                        return moment.unix(value).format('HH:mm:ss')
+                    }
+                }
+            });
+
+{#        var chart = new Chart(ctx, {#}
+{#            type: 'line',#}
+{#            data:{#}
+{#                labels: ,#}
+{#                datasets: [{#}
+{#                    label: 'TCP Packets',#}
+{#                    data: {{ timeframes['tcp'] }}#}
+{#                },#}
+{#                {#}
+{#                    label: 'UDP Packets',#}
+{#                    data: {{ timeframes['udp'] }}#}
+{#                },#}
+{#                {#}
+{#                    label: 'ICMP Packets',#}
+{#                    data: {{ timeframes['icmp'] }}#}
+{#                },#}
+{#                {#}
+{#                    label: 'Targeted IPs',#}
+{#                    data: {{ timeframes['ip'] }}#}
+{#                }]#}
+{#            }#}
+{#        })#}
+    </script>
+
+{% endblock %}

@@ -1,5 +1,4 @@
-from flask import (Blueprint, render_template, redirect, url_for,
-                   abort, flash)
+from flask import Blueprint, render_template, redirect, url_for, abort, flash
 from flask_login import login_user, logout_user, login_required
 
 from app import app, models, db
@@ -176,60 +175,3 @@ def reset(token):
             flash('Unknown email address.', 'negative')
             return redirect(url_for('userbp.forgot'))
     return render_template('user/reset.html', form=form, token=token)
-
-
-# @app.route('/musicroom', methods=['GET', 'POST'])
-# @login_required
-# def music():
-#     return render_template('user/musicroom.html', title='The vibe room')
-#
-#
-# @socketio.on('joined')
-# def joined(message):
-#     """Sent by clients when they enter a room.
-#     A status message is broadcast to all people in the room."""
-#     room = session.get('room')
-#     print('recived my event: ' + str(message), sys.stderr)
-#     socketio.emit('message', {'msg': session.get('name') + ' has entered the room.'}, room=room)
-
-
-# @app.route('/webhook', methods=['GET', 'POST'])
-# def web_hook():
-#     if request.method == 'GET':
-#         verify_token = request.args.get('verify_token')
-#         print("Sent token: " + verify_token)
-#         print("Server token: " + app.config["WEBHOOK_VERIFY_TOKEN"])
-#         clientip = get_ip.get_ip(request)
-#         client = models.AuthorizedClients.query.filter_by(client_ip=clientip).first()
-#         if client is not None:
-#             return jsonify({'status': 'user already authorized'}), 401
-#         if verify_token == app.config["WEBHOOK_VERIFY_TOKEN"]:
-#             client = models.AuthorizedClients(
-#                 client_ip=get_ip.get_ip(request)
-#             )
-#             db.session.add(client)
-#             db.session.commit()
-#             return jsonify({'status': 'success'}), 200
-#         else:
-#             return jsonify({'status': 'bad token'}), 401
-#
-#     elif request.method == 'POST':
-#         print(pl.__dict__)
-#         print("We're in")
-#         clientip = get_ip.get_ip(request)
-#         print("Client ip: " + str(clientip))
-#         client = models.AuthorizedClients.query.filter_by(client_ip=clientip).first()
-#         print("Client object: " + str(client))
-#         if client:
-#             if datetime.now() - client.pub_time > timedelta(hours=app.config["CLIENT_AUTH_TIMEOUT"]):
-#                 db.session.delete(client)
-#                 db.session.commit()
-#                 return jsonify({'status': 'authorization timeout'}), 401
-#             else:
-#                 webhook.process_webhook(request, pusher_client, pl)
-#                 return jsonify({'status': 'success'}), 200
-#         else:
-#             return jsonify({'status': 'not authorized'}), 401
-#
-#     else:
-#         abort(400)

@@ -78,105 +78,105 @@
         </div>
         <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.compatibility.min.js"></script>
-        <script>
-        var loaded = false;
-
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('d33b6f10de4245953937', {
-          cluster: 'us2',
-          encrypted: true
-        });
-
-        var p = $("#para");
-        var song_span = $("#song");
-        var artist_span = $("#artist");
-        var details = $("#artist, #song, #twitter-username");
-        var body = $("#body");
-        var twitter = $("#twitter-username");
-        var song_link = $("#song-link");
-        var song_link_span = $("#song-link-span");
-        var sc_button_div = $("#sc-button-div");
-        var sc_link = $("#sc-link");
-
-
-        function stylize() {
-            details.css({
-                "color": "white",
-                "text-align": "center",
-                "display": "inline-block",
-                "background-color": "rgba(0,0,0,.7)",
-                "padding": "4px 10px 4px 10px"
-            });
-            body.css({
-                "background-repeat": "no-repeat",
-                "background-position": "center",
+{#        <script>#}
+{#        var loaded = false;#}
+{##}
+{#        // Enable pusher logging - don't include this in production#}
+{#        Pusher.logToConsole = true;#}
+{##}
+{#        var pusher = new Pusher('d33b6f10de4245953937', {#}
+{#          cluster: 'us2',#}
+{#          encrypted: true#}
+{#        });#}
+{##}
+{#        var p = $("#para");#}
+{#        var song_span = $("#song");#}
+{#        var artist_span = $("#artist");#}
+{#        var details = $("#artist, #song, #twitter-username");#}
+{#        var body = $("#body");#}
+{#        var twitter = $("#twitter-username");#}
+{#        var song_link = $("#song-link");#}
+{#        var song_link_span = $("#song-link-span");#}
+{#        var sc_button_div = $("#sc-button-div");#}
+{#        var sc_link = $("#sc-link");#}
+{##}
+{##}
+{#        function stylize() {#}
+{#            details.css({#}
+{#                "color": "white",#}
+{#                "text-align": "center",#}
+{#                "display": "inline-block",#}
+{#                "background-color": "rgba(0,0,0,.7)",#}
+{#                "padding": "4px 10px 4px 10px"#}
+{#            });#}
+{#            body.css({#}
+{#                "background-repeat": "no-repeat",#}
+{#                "background-position": "center",#}
 {#                "background-size": "",#}
-                "min-height": "100%",
-                "padding-top": "20px",
-                "padding-bottom": "20px",
-                "margin": "0px"
-            });
-            sc_button_div.css({
-                "display": "flex",
-                "color": "white"
-            });
-            sc_link.css({
-                "color": "black"
-            });
-        }
-
-        function fadeIt(song_name, artist_name, artwork_url, twitter_username, song_url, avg_color, loaded) {
-            details.fadeTo(800, 0, function(){
-                if (loaded === false){
-                    stylize();
-                }
-                body.css('background-image', artwork_url);
-                console.log(avg_color);
-                if (avg_color !== undefined) {
-                    body.css('background-color', avg_color);
-                }
-                if (twitter_username !== undefined){
-                    twitter.html('Requested by ' + twitter_username + ' via <i id="twitter-icon" class="twitter icon"></i>')
-                }
-                else {
-                    twitter.html('Playing via autoplaylist');
-                }
-                sc_link.attr('action', song_url);
-                song_span.html(song_name);
-                artist_span.html(artist_name);
-            }).delay(1000).fadeTo(1500, 1);
-        }
-
-        var channel = pusher.subscribe('my-channel');
-
-        channel.bind('new_song', function(data) {
-            console.log(JSON.stringify(data));
-            var artwork_url = JSON.stringify(data.message.song_artwork_url);
-            var artist_name = JSON.stringify(data.message.song_artist).replace(/\"/g, "");
-            var song_name = JSON.stringify(data.message.song_name).replace(/\"/g, "");
-            var song_url = JSON.stringify(data.message.song_url).replace(/\"/g, "");
-            var twitter_username = JSON.stringify(data.message.song_requester);
-            var avg_color = JSON.stringify(data.message.average_color);
-            console.log(avg_color);
-            if (twitter_username !== undefined){
-                twitter_username = twitter_username.replace(/\"/g, "");
-            }
-            if (avg_color !== undefined){
-                avg_color = avg_color.replace(/\"/g, "");
-            }
-            var song_artwork_url = 'url(' + artwork_url + ')';
-            if (loaded === false){
-                // Change the two text spans to correct style and hide p element
-                p.fadeOut();
-                fadeIt(song_name, artist_name, song_artwork_url, twitter_username, song_url, avg_color, loaded);
-                loaded = true;
-            }
-            else {
-                fadeIt(song_name, artist_name, song_artwork_url, twitter_username, song_url, avg_color, loaded);
-            }
-        });
+{#                "min-height": "100%",#}
+{#                "padding-top": "20px",#}
+{#                "padding-bottom": "20px",#}
+{#                "margin": "0px"#}
+{#            });#}
+{#            sc_button_div.css({#}
+{#                "display": "flex",#}
+{#                "color": "white"#}
+{#            });#}
+{#            sc_link.css({#}
+{#                "color": "black"#}
+{#            });#}
+{#        }#}
+{##}
+{#        function fadeIt(song_name, artist_name, artwork_url, twitter_username, song_url, avg_color, loaded) {#}
+{#            details.fadeTo(800, 0, function(){#}
+{#                if (loaded === false){#}
+{#                    stylize();#}
+{#                }#}
+{#                body.css('background-image', artwork_url);#}
+{#                console.log(avg_color);#}
+{#                if (avg_color !== undefined) {#}
+{#                    body.css('background-color', avg_color);#}
+{#                }#}
+{#                if (twitter_username !== undefined){#}
+{#                    twitter.html('Requested by ' + twitter_username + ' via <i id="twitter-icon" class="twitter icon"></i>')#}
+{#                }#}
+{#                else {#}
+{#                    twitter.html('Playing via autoplaylist');#}
+{#                }#}
+{#                sc_link.attr('action', song_url);#}
+{#                song_span.html(song_name);#}
+{#                artist_span.html(artist_name);#}
+{#            }).delay(1000).fadeTo(1500, 1);#}
+{#        }#}
+{##}
+{#        var channel = pusher.subscribe('my-channel');#}
+{##}
+{#        channel.bind('new_song', function(data) {#}
+{#            console.log(JSON.stringify(data));#}
+{#            var artwork_url = JSON.stringify(data.message.song_artwork_url);#}
+{#            var artist_name = JSON.stringify(data.message.song_artist).replace(/\"/g, "");#}
+{#            var song_name = JSON.stringify(data.message.song_name).replace(/\"/g, "");#}
+{#            var song_url = JSON.stringify(data.message.song_url).replace(/\"/g, "");#}
+{#            var twitter_username = JSON.stringify(data.message.song_requester);#}
+{#            var avg_color = JSON.stringify(data.message.average_color);#}
+{#            console.log(avg_color);#}
+{#            if (twitter_username !== undefined){#}
+{#                twitter_username = twitter_username.replace(/\"/g, "");#}
+{#            }#}
+{#            if (avg_color !== undefined){#}
+{#                avg_color = avg_color.replace(/\"/g, "");#}
+{#            }#}
+{#            var song_artwork_url = 'url(' + artwork_url + ')';#}
+{#            if (loaded === false){#}
+{#                // Change the two text spans to correct style and hide p element#}
+{#                p.fadeOut();#}
+{#                fadeIt(song_name, artist_name, song_artwork_url, twitter_username, song_url, avg_color, loaded);#}
+{#                loaded = true;#}
+{#            }#}
+{#            else {#}
+{#                fadeIt(song_name, artist_name, song_artwork_url, twitter_username, song_url, avg_color, loaded);#}
+{#            }#}
+{#        });#}
 
         </script>
 	{% endif %}

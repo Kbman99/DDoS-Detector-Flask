@@ -21,7 +21,7 @@ toolbar = DebugToolbarExtension(app)
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
-from app.views import main, user, error, api
+from app.views import main, user, error
 app.register_blueprint(user.userbp)
 
 from flask_login import LoginManager
@@ -30,9 +30,6 @@ from app.models import User
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'userbp.signin'
-
-from .toolbox import webhook
-webhook.setup_token()
 
 
 @login_manager.user_loader

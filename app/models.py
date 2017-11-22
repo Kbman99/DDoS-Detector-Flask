@@ -37,15 +37,91 @@ class User(db.Model, UserMixin):
         return self.email
 
 
-class AuthorizedClients(db.Model):
+class Timeframes(db.Model):
+    """Sqlalchemy timeframes model"""
 
-    ''' A client which is authorized to use the webhook system '''
+    def __init__(self, timeframe, tcp, udp, icmp, ip):
+        self.timeframe = timeframe
+        self.tcp_total = tcp
+        self.udp_total = udp
+        self.icmp_total = icmp
+        self.ip_total = ip
 
-    __tablename__ = 'authorized_clients'
+    __tablename__ = 'timeframes'
+    __bind_key__ = 'ddos'
 
-    client_ip = db.Column(db.String, primary_key=True)
-    pub_time = db.Column(db.DateTime(timezone=True), default=func.now(), nullable=False)
+    timeframe = db.Column('timeframe', db.BIGINT, primary_key=True)
+    tcp_total = db.Column('tcp_total', db.Integer, nullable=True, default=0)
+    udp_total = db.Column('udp_total', db.Integer, nullable=True, default=0)
+    icmp_total = db.Column('icmp_total', db.Integer, nullable=True, default=0)
+    ip_total = db.Column('ip_total', db.Integer, nullable=True, default=0)
 
-    @property
-    def ip(self):
-        return '{}'.format(self.client_ip)
+
+class UniqueLocation(db.Model):
+    """Sqlalchemy Unique Location models"""
+    def __init__(self, lat, long, ip_count, tcp_count, udp_count, icmp_count):
+        self.lat = lat
+        self.long = long
+        self.ip_count = ip_count
+        self.tcp_count = tcp_count
+        self.udp_count = udp_count
+        self.icmp_count = icmp_count
+
+    __tablename__ = 'unique_location'
+    __bind_key__ = 'ddos'
+
+    lat = db.Column('lat', db.Numeric(10, 6), primary_key=True)
+    long = db.Column('long', db.Numeric(10, 6), primary_key=True)
+    ip_count = db.Column('ip_count', db.Integer)
+    tcp_count = db.Column('tcp_count', db.Integer)
+    udp_count = db.Column('udp_count', db.Integer)
+    icmp_count = db.Column('icmp_count', db.Integer)
+
+
+class UniqueVictims(db.Model):
+    """Sqlalchemy unique victims model"""
+
+    def __init__(self, ip, lat, long):
+        self.ip = ip
+        self.lat = lat
+        self.long = long
+
+    __tablename__ = 'uniquevictims'
+    __bind_key__ = 'ddos'
+
+    ip = db.Column('ip', db.String, primary_key=True)
+    lat = db.Column('lat', db.Numeric(10, 6), default=0)
+    long = db.Column('long', db.Numeric(10, 6), default=0)
+
+
+class Victims(db.Model):
+    """Sqlalchemy victims model"""
+
+    def __init__(self, ip, tcp, udp, icmp, timeframe):
+        self.ip = ip
+        self.tcp_count = tcp
+        self.udp_count = udp
+        self.icmp_count = icmp
+        self.timeframe = timeframe
+
+    __tablename__ = 'victims'
+    __bind_key__ = 'ddos'
+
+    ip = db.Column('ip', db.String, db.ForeignKey("uniquevictims.ip"), primary_key=True)
+    tcp_count = db.Column('tcp_count', db.Integer, nullable=True, default=0)
+    udp_count = db.Column('udp_count', db.Integer, nullable=True, default=0)
+    icmp_count = db.Column('icmp_count', db.Integer, nullable=True, default=0)
+    timeframe = db.Column('timeframe', db.BIGINT, db.ForeignKey("timeframes.timeframe"), primary_key=True)
+
+# class AuthorizedClients(db.Model):
+#
+#     ''' A client which is authorized to use the webhook system '''
+#
+#     __tablename__ = 'authorized_clients'
+#
+#     client_ip = db.Column(db.String, primary_key=True)
+#     pub_time = db.Column(db.DateTime(timezone=True), default=func.now(), nullable=False)
+#
+#     @property
+#     def ip(self):
+#         return '{}'.format(self.client_ip)

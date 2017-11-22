@@ -23,7 +23,7 @@ MAIL_USE_TLS = False
 MAIL_USE_SSL = True
 MAIL_USERNAME = 'twitterplaymethis'
 MAIL_PASSWORD = 'twitterpassword'
-ADMINS = ['twitterpalymethis@gmail.com']
+ADMINS = ['twitterplaymethis@gmail.com']
 
 # Number of times a password is hashed
 BCRYPT_LOG_ROUNDS = 12

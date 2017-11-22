@@ -24,11 +24,11 @@
 				<title>{{ title }}</title>
 				<!-- Navbar -->
 				<div class="ui attached inverted menu">
-				  	{{ m.nav_link('index', 'MusicRoom') }}
+				  	{{ m.nav_link('index', 'Home') }}
+                    {{ m.nav_link('map', 'Map') }}
 					{{ m.nav_link('contact', 'Contact') }}
 				 		<!-- User is logged in -->
 				      	{% if current_user.is_authenticated %}
-                            {{ m.nav_link('web_hook_setup', 'Setup') }}
                             <div class="right menu">
 				      		<div class="item">
 				        		<a class="ui primary button" href="/user/account">{{ current_user.full_name }}</a>
@@ -67,10 +67,10 @@
 			<div class="ui divider"></div>
 	    		<div class="ui divided horizontal footer link list">
 			      	<div class="item">
-			        	Max Halford
+			        	Kyle Bowman
 			      	</div>
 			      	<div class="item">
-			        	<a href="https://github.com/MaxHalford"><i class="github icon"></i></a>
+			        	<a href="https://github.com/kbman99"><i class="github icon"></i></a>
 			      	</div>
 	    		</div>
 	  		</div>
