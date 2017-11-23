@@ -12,6 +12,10 @@ ADMIN_CREDENTIALS = ('admin', 'pa$$word')
 # Database choice
 SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
 SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_BINDS = {
+    'ddos2': 'postgresql://postgres:password@localhost:5432/ddos2',
+    'ddos': 'postgresql://postgres:password@localhost:5432/DDOS'
+}
 
 # Configuration of a Gmail account for sending mails
 MAIL_SERVER = 'smtp.googlemail.com'

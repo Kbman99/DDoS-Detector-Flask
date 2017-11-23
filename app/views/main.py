@@ -17,7 +17,7 @@ def contact():
 @app.route('/map')
 def map():
     unique_locations = models.UniqueLocation.query.all()
-    timeframes = models.Timeframes.query.all()
+    victims = models.UniqueVictims.query.all()
     # timeframe_data = {
     #     'tcp': [t.tcp_count for t in timeframes],
     #     'udp': [t.udp_count for t in timeframes],
@@ -26,8 +26,7 @@ def map():
     # }
 
     return render_template('map.html', title='DDoS Attack Map',
-                           location=unique_locations,
-                           timeframes=timeframes)
+                           location=unique_locations, victims=victims)
 
 # @app.route('/map')
 # def map():
