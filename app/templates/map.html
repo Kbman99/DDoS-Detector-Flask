@@ -76,16 +76,17 @@
         var markerList = [];
 
         {%  for v in victims %}
-            var title = "<strong><h3>{{ v.ip }}<h3></strong>" +
+            var title = "<strong><h3>{{ "{}, {}".format(v.city, v.country) if v.city and v.country else "" }}<h3></strong>" +
                         " {{ "{}, {}".format(v.lat, v.long) }}" +
-                        "</br>" +
                         "<ul>" +
+                        "<li><strong>ISP: </strong>{{ v.ip }}</li>" +
                         "<li><strong>TCP Packets: </strong>{{ v.tcp_count }}</li>" +
                         "<li><strong>UDP Packets: </strong>{{ v.udp_count }}</li>" +
                         "<li><strong>ICMP Packets: </strong>{{ v.icmp_count }}</li>" +
                         "<li><strong>Rate (packets/s): </strong>{{ v.rate }}</li>" +
+                        "<li><strong>ISP: </strong>{{ v.isp if v.isp else "Unknown" }}</li>" +
                         "</ul>";
-            var marker = L.marker([{{ v.lat }}, {{ v.long }}], { title: "{{ v.ip }}" });
+                var marker = L.marker([{{ v.lat }}, {{ v.long }}], { title: "{{ v.ip }}" });
             marker.bindPopup(title);
             markerList.push(marker);
         {% endfor %}

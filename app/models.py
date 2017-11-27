@@ -86,6 +86,9 @@ class UniqueVictims(db.Model):
     icmp_count = db.Column('icmp_count', db.Integer, default=0)
     time_frame_count = db.Column('time_frame_count', db.Integer, default=0)
     rate = db.Column('rate', db.Numeric(10, 2), default=0)
+    city = db.Column('city', db.String)
+    country = db.Column('country', db.String)
+    isp = db.Column('isp', db.String)
 
 
 class Victims(db.Model):
@@ -102,7 +105,8 @@ class Victims(db.Model):
     __bind_key__ = 'ddos2'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    ip = db.Column('ip', db.String, db.ForeignKey("unique_victims.ip", onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
+    ip = db.Column('ip', db.String, db.ForeignKey("unique_victims.ip", onupdate="CASCADE", ondelete="CASCADE"),
+                   primary_key=True)
     tcp_count = db.Column('tcp_count', db.Integer, nullable=True, default=0)
     udp_count = db.Column('udp_count', db.Integer, nullable=True, default=0)
     icmp_count = db.Column('icmp_count', db.Integer, nullable=True, default=0)
