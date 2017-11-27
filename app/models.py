@@ -102,7 +102,7 @@ class Victims(db.Model):
     __bind_key__ = 'ddos2'
 
     id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    ip = db.Column('ip', db.String, db.ForeignKey("unique_victims.ip"), primary_key=True)
+    ip = db.Column('ip', db.String, db.ForeignKey("unique_victims.ip", onupdate="CASCADE", ondelete="CASCADE"), primary_key=True)
     tcp_count = db.Column('tcp_count', db.Integer, nullable=True, default=0)
     udp_count = db.Column('udp_count', db.Integer, nullable=True, default=0)
     icmp_count = db.Column('icmp_count', db.Integer, nullable=True, default=0)
@@ -128,25 +128,25 @@ class Victims(db.Model):
 #     ip_total = db.Column('ip_total', db.Integer, nullable=True, default=0)
 
 
-class UniqueLocation(db.Model):
-    """Sqlalchemy Unique Location models"""
-    def __init__(self, lat, long, ip_count, tcp_count, udp_count, icmp_count):
-        self.lat = lat
-        self.long = long
-        self.ip_count = ip_count
-        self.tcp_count = tcp_count
-        self.udp_count = udp_count
-        self.icmp_count = icmp_count
-
-    __tablename__ = 'unique_location'
-    __bind_key__ = 'ddos'
-
-    lat = db.Column('lat', db.Numeric(10, 6), primary_key=True)
-    long = db.Column('long', db.Numeric(10, 6), primary_key=True)
-    ip_count = db.Column('ip_count', db.Integer)
-    tcp_count = db.Column('tcp_count', db.Integer)
-    udp_count = db.Column('udp_count', db.Integer)
-    icmp_count = db.Column('icmp_count', db.Integer)
+# class UniqueLocation(db.Model):
+#     """Sqlalchemy Unique Location models"""
+#     def __init__(self, lat, long, ip_count, tcp_count, udp_count, icmp_count):
+#         self.lat = lat
+#         self.long = long
+#         self.ip_count = ip_count
+#         self.tcp_count = tcp_count
+#         self.udp_count = udp_count
+#         self.icmp_count = icmp_count
+#
+#     __tablename__ = 'unique_location'
+#     __bind_key__ = 'ddos'
+#
+#     lat = db.Column('lat', db.Numeric(10, 6), primary_key=True)
+#     long = db.Column('long', db.Numeric(10, 6), primary_key=True)
+#     ip_count = db.Column('ip_count', db.Integer)
+#     tcp_count = db.Column('tcp_count', db.Integer)
+#     udp_count = db.Column('udp_count', db.Integer)
+#     icmp_count = db.Column('icmp_count', db.Integer)
 
 
 # class UniqueVictims(db.Model):

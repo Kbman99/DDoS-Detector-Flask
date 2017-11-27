@@ -8,74 +8,76 @@
 <div class="ui grid">
     <div class="row"></div>
     <div class="row"></div>
-    {% if not current_user.is_authenticated %}
+{#    {% if not current_user.is_authenticated %}#}
         <div class="row">
             <div class="two wide column"></div>
             <div class="seven wide mobile five wide computer column">
-                <div class="ui header" style="font-size:40px">Welcome to MusicBot</div>
+                <div class="ui header" style="font-size:40px">DDoS Detector</div>
             </div>
         </div>
         <div class="row"></div>
         <div class="row">
         {#        <div class="four wide column"></div>#}
-            <div class="fourteen wide mobile eight wide computer center aligned centered column">
+            <div class="fourteen wide mobile ten wide computer center aligned centered column">
                 <p id="intro" style="font-size:22px;line-height:2">
-                    In order to get started, you must first make an account and sign in. Once that's done, head to the setup
-                    page and you can quickly authorize your machine to use the webhook. The MusicRoom page is where all
-                    songs will be displayed for you to see.
-                    <br>Enjoy your stay and vibe out....
+                    In this small project to identify victims of DDoS attacks, we observe traffic received to a dark net
+                    over the course of ~7 hours from victims all over the world. The inferrance of the DDoS attacks was
+                    done using an algorithm which tracks packets received over a set time period and categorizes the
+                    types received and how many of each packet type for each victim. To read more about how this was achieve
+                    check out the FAQ.
+                    <br>
                 </p>
             </div>
         </div>
-    {% else %}
-        <div class="row">
-            <div class="two wide column"></div>
-            <div class="seven wide mobile five wide computer column">
-                <span id="artist" class="ui header"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="two wide column"></div>
-            <div class="twelve wide mobile twelve wide computer column">
-                <div>
-                    <span id="song" style="font-size:40px" class="ui header">Awaiting good vibes....</span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="two wide column"></div>
-            <div class="eight wide mobile six wide computer column">
-                <div>
-                    <span id="twitter-username" class="ui header" style="display:none">
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="row"></div>
-        <div class="row"></div>
-        <div class="row">
+{#    {% else %}#}
+{#        <div class="row">#}
+{#            <div class="two wide column"></div>#}
+{#            <div class="seven wide mobile five wide computer column">#}
+{#                <span id="artist" class="ui header"></span>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <div class="two wide column"></div>#}
+{#            <div class="twelve wide mobile twelve wide computer column">#}
+{#                <div>#}
+{#                    <span id="song" style="font-size:40px" class="ui header">Awaiting good vibes....</span>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <div class="two wide column"></div>#}
+{#            <div class="eight wide mobile six wide computer column">#}
+{#                <div>#}
+{#                    <span id="twitter-username" class="ui header" style="display:none">#}
+{#                    </span>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row"></div>#}
+{#        <div class="row"></div>#}
+{#        <div class="row">#}
     {#        <div class="four wide column"></div>#}
-            <div class="fourteen wide mobile eight wide computer center aligned centered column">
-                <p id="para" style="font-size:22px;line-height:2">
-                    Hey, I'm MusicBot. You can send me your song requests to my Twitter @PlayMeThisSong from SoundCloud
-                    and I'll do my best to play them for you.
-                    <br>Enjoy your stay and vibe out....
-                </p>
-            </div>
-        </div>
+{#            <div class="fourteen wide mobile eight wide computer center aligned centered column">#}
+{#                <p id="para" style="font-size:22px;line-height:2">#}
+{#                    Hey, I'm MusicBot. You can send me your song requests to my Twitter @PlayMeThisSong from SoundCloud#}
+{#                    and I'll do my best to play them for you.#}
+{#                    <br>Enjoy your stay and vibe out....#}
+{#                </p>#}
+{#            </div>#}
+{#        </div>#}
     {#    <div class="ui center aligned segment">#}
     {#            <span id="song-link-span" style="position: fixed; bottom: 6vh; display: none">#}
     {#                <a id="song-link" href="#">Artist SoundCloud <i class="large soundcloud icon"></i></a>#}
     {#            </span>#}
     {#    </div>#}
-        <div id="sc-button-div" style="width: 100%;align-items: center;justify-content: center;position: fixed; bottom:12vh;display: none">
-            <form id="sc-link" action="" target="_blank">
-                <button class="small ui orange compact button" style="text-align: center"><i class="large soundcloud icon"></i>
-                Artist Soundcloud
-            </button>
-            </form>
-        </div>
-        </div>
+{#        <div id="sc-button-div" style="width: 100%;align-items: center;justify-content: center;position: fixed; bottom:12vh;display: none">#}
+{#            <form id="sc-link" action="" target="_blank">#}
+{#                <button class="small ui orange compact button" style="text-align: center"><i class="large soundcloud icon"></i>#}
+{#                Artist Soundcloud#}
+{#            </button>#}
+{#            </form>#}
+{#        </div>#}
+{#        </div>#}
         <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.compatibility.min.js"></script>
 {#        <script>#}
@@ -178,7 +180,7 @@
 {#            }#}
 {#        });#}
 
-        </script>
-	{% endif %}
+{#        </script>#}
+{#	{% endif %}#}
 </div>
 {% endblock %}

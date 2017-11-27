@@ -14,9 +14,14 @@ def contact():
     return render_template('contact.html', title='Contact')
 
 
+@app.route('/faq')
+def faq():
+    return render_template('faq.html', title='FAQ')
+
+
 @app.route('/map')
 def map():
-    unique_locations = models.UniqueLocation.query.all()
+    # unique_locations = models.UniqueLocation.query.all()
     victims = models.UniqueVictims.query.all()
     # timeframe_data = {
     #     'tcp': [t.tcp_count for t in timeframes],
@@ -25,8 +30,7 @@ def map():
     #     'ip': [t.ip_count for t in timeframes]
     # }
 
-    return render_template('map.html', title='DDoS Attack Map',
-                           location=unique_locations, victims=victims)
+    return render_template('map.html', title='DDoS Attack Map', victims=victims)
 
 # @app.route('/map')
 # def map():
