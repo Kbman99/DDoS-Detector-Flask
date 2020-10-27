@@ -21,7 +21,7 @@ bs4==0.0.1
 certifi==2017.7.27.1
 cffi==1.11.1
 chardet==3.0.4
-cryptography==2.0.3
+cryptography==3.2
 enum-compat==0.0.2
 eventlet==0.21.0
 Flask==0.10.1
@@ -65,7 +65,7 @@ bs4==0.0.1
 certifi==2017.7.27.1
 cffi==1.11.1
 chardet==3.0.4
-cryptography==2.0.3
+cryptography==3.2
 enum-compat==0.0.2
 eventlet==0.21.0
 Flask==0.10.1
@@ -112,7 +112,7 @@ bs4==0.0.1
 certifi==2017.7.27.1
 cffi==1.11.1
 chardet==3.0.4
-cryptography==2.0.3
+cryptography==3.2
 dpkt==1.9.1
 enum-compat==0.0.2
 eventlet==0.21.0
