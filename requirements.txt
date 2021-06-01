@@ -54,7 +54,7 @@ six==1.11.0
 SQLAlchemy==1.1.14
 structlog==16.1.0
 termcolor==1.1.0
-urllib3==1.22
+urllib3==1.26.5
 Werkzeug==0.12.2
 WTForms==2.1
 asn1crypto==0.23.0
@@ -101,7 +101,7 @@ six==1.11.0
 SQLAlchemy==1.1.14
 structlog==16.1.0
 termcolor==1.1.0
-urllib3==1.22
+urllib3==1.26.5
 Werkzeug==0.12.2
 WTForms==2.1
 asn1crypto==0.23.0
@@ -149,6 +149,6 @@ six==1.11.0
 SQLAlchemy==1.1.14
 structlog==16.1.0
 termcolor==1.1.0
-urllib3==1.22
+urllib3==1.26.5
 Werkzeug==0.12.2
 WTForms==2.1
